@@ -37,7 +37,7 @@ namespace FuelDispenseAPI.Controllers
             return Ok(data);
         }
 
-        [HttpGet("DownloadProof/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> DownloadProof(int id)
         {
              try
@@ -50,7 +50,11 @@ namespace FuelDispenseAPI.Controllers
                     return NotFound("File not found for the specified record.");
                 }
 
-                return File(fileBytes, contentType, fileName);
+                return File(
+             fileContents: fileBytes,
+             contentType: contentType, 
+             fileDownloadName: fileName
+              );
             }
             catch (Exception ex)
             {
